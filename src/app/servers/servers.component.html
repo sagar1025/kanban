@@ -7,7 +7,7 @@ name="server Name"
 [(ngModel)]="serverName"
 />
 
-{{serverName}}
+<p>{{serverCreationStatus}}</p>
 
 <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add Server</button>
 
