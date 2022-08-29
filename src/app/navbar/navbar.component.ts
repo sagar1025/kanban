@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../services/storageService';
+import { activeBoardKey } from '../constants';
+import { IBoard } from '../interface/IBoard';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
+  activeBoard: any;
+  constructor(private localstorage: StorageService) { }
 
   ngOnInit(): void {
+    this.activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
+    console.log(this.activeBoard)
   }
 
 }

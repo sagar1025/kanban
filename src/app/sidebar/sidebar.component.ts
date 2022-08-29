@@ -2,6 +2,8 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { StorageService } from '../services/storageService';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
+import { boardKey, activeBoardKey } from '../constants';
+import { IBoard } from '../interface/IBoard';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,16 +14,23 @@ import { faTrello } from '@fortawesome/free-brands-svg-icons';
   providedIn: 'root'
 })
 export class SidebarComponent implements OnInit {
-  boardKey = 'BOARDS';
+  boardKey = boardKey;
+  activeBoardKey = activeBoardKey;
   boards: IBoard[] = [];
   boardsCount: number = 0;
   faTrello = faTrello;
+  activeBoardId: number = 0;
 
   constructor(private localstorage: StorageService) { }
 
   ngOnInit(): void {
     this.boards = this.getBoards();
     this.boardsCount = this.boards ? this.boards.length : 0;
+    if(this.boardsCount === 0) {
+      this.activeBoardId = 0;
+    }
+    const activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
+    this.activeBoardId = activeBoard ? activeBoard.id : 0;
   }
 
   getBoards() {
@@ -34,7 +43,6 @@ export class SidebarComponent implements OnInit {
     if(formData && formData.boardName)  {
       const boardName = formData.boardName;
       let boards = <[IBoard]>this.getBoards() || [];
-      console.log(boards);
       if(boards && boards !== null && boards.length > 0) {
         const data: IBoard = {
           name: boardName,
@@ -53,9 +61,15 @@ export class SidebarComponent implements OnInit {
       window.location.reload();
     }
   }
-};
 
-interface IBoard {
-  id: number;
-  name: string;
-}
+  setActiveBoard(id: number) {
+    this.activeBoardId = id;
+    this.localstorage.set(this.activeBoardKey, this.getActiveBoard()[0]);
+    window.location.reload();
+  }
+
+  getActiveBoard() {
+    return this.boards.filter(board => board.id === this.activeBoardId);
+  }
+
+};

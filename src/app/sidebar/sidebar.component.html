@@ -8,10 +8,10 @@
     <ul class="nav nav-pills flex-column mb-auto">
         
         <li class="nav-item mb-2" *ngFor="let board of boards">
-            <a href="#" class="nav-link active" aria-current="page">
+            <button type="button" href="#" class="nav-link" [class.active]="activeBoardId === board.id" aria-current="page" (click)="setActiveBoard(board.id)">
                 <fa-icon [icon]="faTrello" class="me-2"></fa-icon>
                 {{board.name}}
-            </a>
+            </button>
         </li>
         <li>
         <button type="button" class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#newBoard">+ Create new board</button>
