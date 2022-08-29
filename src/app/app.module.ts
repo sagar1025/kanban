@@ -7,6 +7,7 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ColumnsComponent } from './columns/columns.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ServerComponent,
     ServersComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    ColumnsComponent
   ],
   imports: [
     BrowserModule,
