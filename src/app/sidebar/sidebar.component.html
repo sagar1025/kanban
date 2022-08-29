@@ -3,7 +3,7 @@
         <fa-icon [icon]="faTrello" class="me-2" size="3x"></fa-icon>
         <span class="fs-4">Kanban</span>
     </a>
-    <p class="my-3 text-small">All boards {{boardsCount}}</p>
+    <p class="my-3 text-small">All boards ({{boardsCount}})</p>
 
     <ul class="nav nav-pills flex-column mb-auto">
         
@@ -13,8 +13,9 @@
                 {{board.name}}
             </button>
         </li>
+        <hr />
         <li>
-        <button type="button" class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#newBoard">+ Create new board</button>
+            <button type="button" class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#newBoard">+ Create new board</button>
         </li>
     </ul>
 </div>

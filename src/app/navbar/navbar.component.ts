@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
-    console.log(this.activeBoard)
   }
 
 }

@@ -34,8 +34,7 @@ export class SidebarComponent implements OnInit {
   }
 
   getBoards() {
-    const boards = this.localstorage.get(this.boardKey);
-    return boards;
+    return this.localstorage.get(this.boardKey);
   }
 
   addBoard(form: NgForm): void {
