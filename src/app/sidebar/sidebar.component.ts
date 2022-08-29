@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
   }
 
   getBoards() {
-    return this.localstorage.get(this.boardKey);
+    return this.localstorage.get(boardKey);
   }
 
   addBoard(form: NgForm): void {
@@ -56,14 +56,14 @@ export class SidebarComponent implements OnInit {
         }
         boards.push(board);
       }
-      this.localstorage.set(this.boardKey, boards);
+      this.localstorage.set(boardKey, boards);
       window.location.reload();
     }
   }
 
   setActiveBoard(id: number) {
     this.activeBoardId = id;
-    this.localstorage.set(this.activeBoardKey, this.getActiveBoard()[0]);
+    this.localstorage.set(activeBoardKey, this.getActiveBoard()[0]);
     window.location.reload();
   }
 

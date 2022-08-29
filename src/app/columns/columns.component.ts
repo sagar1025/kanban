@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { IBoard } from '../interface/IBoard';
+import { StorageService } from '../services/storageService';
+import { activeBoardKey, boardKey } from '../constants';
+import IColumn  from '../interface/IColumn';
 
 @Component({
   selector: 'app-columns',
@@ -7,10 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ColumnsComponent implements OnInit {
 
-  constructor() { }
+  columns: IColumn[] = [];
+  constructor(private localstorage: StorageService) { }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void { }
+
+  addColumn() {
+    const newColumn: IColumn = {
+      id: 0,
+      name: 'asda'
+    }
   }
-
 }
