@@ -1,6 +1,37 @@
 <app-navbar class="w-100"></app-navbar>
 <div class="container-fluid py-4 vh-100">
-    <div class="d-flex justify-content-between h-100">
-        <button class="btn w-100 bg-light">+ New Column</button>
+    <div class="d-flex justify-content-between">
+        <div class="item p-1" style="max-width: 250px;" *ngFor="let column of columns">
+            <p class="">{{column.name}}</p>
+            <div class="column-task">
+                <h6>[Hardcoded] Build UI for onboarding flow</h6>
+                <span class="checklist text-small">
+                    [Hardcoded] 0 of 3 subtasks
+                </span>
+            </div>
+        </div>
+        <button class="btn w-100 bg-light align-items-stretch" data-bs-toggle="modal" data-bs-target="#newColumn">+ New Column</button>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="newColumn" aria-labelledby="newColumnLabel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a new column</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #f="ngForm" (ngSubmit)="addColumn(f)">
+                    <div class="input-group mb-3">
+                        <label class="label me-3">Name of Column</label>
+                        <input type="text" class="form-control" placeholder="Column name" aria-label="Column name" name="columnName"  ngModel/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary">Add column</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
