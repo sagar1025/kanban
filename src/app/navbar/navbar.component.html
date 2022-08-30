@@ -2,5 +2,42 @@
     <a class="navbar-brand" href="#">
       {{activeBoard.name}}
     </a>
-    <button class="btn btn-primary rounded-pill" type="button">+ Add New Task</button>
+    <button *ngIf="activeBoard.columns && activeBoard.columns.length > 0" class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#addTask">+ Add New Task</button>
 </nav>
+<div  *ngIf="activeBoard.columns && activeBoard.columns.length > 0" class="modal fade" tabindex="-1" id="addTask" aria-labelledby="addTaskLabel">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Add a New Task</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form #f="ngForm" (ngSubmit)="addTask(f)">
+                  <div class="input-group mb-3">
+                      <label class="label me-3">Title</label>
+                      <input type="text" class="form-control" placeholder="Title" aria-label="Title" name="title"  ngModel/>
+                  </div>
+                  <div class="input-group mb-3">
+                    <label class="label me-3">Description</label>
+                    <input type="text" class="form-control" placeholder="Description" aria-label="Description" name="description"  ngModel/>
+                  </div>
+                  <!-- <div class="input-group mb-3">
+                    <label class="label me-3">SubTasks</label>
+                    <input type="text" class="form-control" aria-label="SubTasks 1" ngModel/>
+                    <input type="text" class="form-control" aria-label="SubTasks 2" ngModel/>
+                    <button class="btn btn-primary rounded-pill" type="button" >+ Add New Subtask</button>
+                  </div> -->
+                  <div class="input-group mb-3">
+                    <label class="label me-3">Status</label>
+                    <select  class="form-select" aria-label="status" name="status" ngModel>
+                      <option *ngFor="let col of columns" [ngValue]="col.id">{{col.name}}</option>
+                    </select>
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-primary rounded-pill">Create Task</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
