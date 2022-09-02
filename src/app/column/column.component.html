@@ -1,11 +1,8 @@
 <div>
     <strong>{{column.name}}</strong>
-    <div class="card mt-2">
-        <div class="card-body column-task">
-            <h6>[Hardcoded] Build UI for onboarding flow</h6>
-            <span class="checklist text-small">
-                [Hardcoded] 0 of 3 subtasks
-            </span>
-        </div>
+    <div *ngIf="column.tasks !== undefined">
+        <app-tasks class="card mt-2" style="min-width: 100px;"
+        [columnTasks]="column.tasks"
+        ></app-tasks>
     </div>
 </div>

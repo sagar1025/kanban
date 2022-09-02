@@ -1,0 +1,8 @@
+<div *ngFor="let taskItem of columnTasks">
+    <div class="card-body column-task">
+        <h6>{{taskItem.title}}</h6>
+        <p class="checklist text-small" style="font-size: smaller;">
+            {{taskItem.description}}
+        </p>
+    </div>
+</div>

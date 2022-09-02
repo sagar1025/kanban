@@ -1,5 +1,7 @@
+import ITask from "./ITask";
+
 export default interface IColumn {
     id: number;
     name: string;
-    tasks?: [Task];
+    tasks?: Array<ITask>;
 }
