@@ -1,8 +1,9 @@
+import ISubtask from "./ISubtask";
 
 export default interface ITask {
     id: number;
     title: string;
     description?: string;
-    //TO DO - subTasks array
+    subTasks?: Array<ISubtask>;
     columnId: number;
 }
