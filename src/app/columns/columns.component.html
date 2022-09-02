@@ -1,17 +1,10 @@
 <app-navbar class="w-100"></app-navbar>
 <div class="container-fluid py-4 vh-100">
     <div class="d-flex justify-content-between">
-        <div class="item p-1" style="max-width: 250px;" *ngFor="let column of columns">
-            <strong>{{column.name}}</strong>
-            <div class="card mt-2">
-                <div class="card-body column-task">
-                    <h6>[Hardcoded] Build UI for onboarding flow</h6>
-                    <span class="checklist text-small">
-                        [Hardcoded] 0 of 3 subtasks
-                    </span>
-                </div>
-            </div>
-        </div>
+        <app-column class="item p-1" style="max-width: 250px;" 
+            *ngFor="let item of columns"
+            [column]="item">
+        </app-column>
         <button class="btn w-100 bg-light align-items-stretch ms-2"  style="min-height: calc(100vh - 10vh);" data-bs-toggle="modal" data-bs-target="#newColumn">+ New Column</button>
     </div>
 </div>
