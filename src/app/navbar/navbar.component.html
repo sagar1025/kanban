@@ -37,7 +37,7 @@
 
                   <div class="input-group mb-3 mt-4">
                     <label class="label me-3">Status</label>
-                    <select  class="form-select" aria-label="status" name="status">
+                    <select class="form-select" aria-label="status" formControlName="status">
                       <option *ngFor="let col of columns" [ngValue]="col.id">{{col.name}}</option>
                     </select>
                   </div>

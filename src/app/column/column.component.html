@@ -1,7 +1,7 @@
 <div>
     <strong>{{column.name}}</strong>
     <div *ngIf="column.tasks !== undefined">
-        <app-tasks class="card mt-2" style="min-width: 100px;"
+        <app-tasks class="mt-2" style="min-width: 100px;"
         [columnTasks]="column.tasks"
         ></app-tasks>
     </div>

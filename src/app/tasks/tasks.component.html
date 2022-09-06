@@ -1,10 +1,11 @@
-<div *ngFor="let taskItem of columnTasks">
+<div *ngFor="let taskItem of columnTasks" class="card mb-3">
     <div class="card-body column-task">
         <h6>{{taskItem.title}}</h6>
-        <p class="checklist text-small" style="font-size: smaller;">
-            <ng-template *ngIf="taskItem.subTasks && taskItem.subTasks.length > 0">
-                {{ taskItem | completedTasks }} of 3 subtasks
-            </ng-template>
+        <p class="checklist text-small" style="font-size: smaller;" *ngIf="taskItem.subTasks; else noSubTasks">
+            {{ taskItem | completedTasks }} of {{taskItem.subTasks.length}} subtasks
         </p>
+        <ng-template #noSubTasks>
+            <p>No subtasks</p>
+        </ng-template>
     </div>
 </div>
