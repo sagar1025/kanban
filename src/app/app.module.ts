@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ColumnsComponent } from './columns/columns.component';
 import { ColumnComponent } from './column/column.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { CompletedTasksPipe } from './pipes/completedTasks.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TasksComponent } from './tasks/tasks.component';
     NavbarComponent,
     ColumnsComponent,
     ColumnComponent,
-    TasksComponent
+    TasksComponent,
+    CompletedTasksPipe
   ],
   imports: [
     BrowserModule,

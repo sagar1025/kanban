@@ -2,7 +2,9 @@
     <div class="card-body column-task">
         <h6>{{taskItem.title}}</h6>
         <p class="checklist text-small" style="font-size: smaller;">
-            {{taskItem.description}}
+            <ng-template *ngIf="taskItem.subTasks && taskItem.subTasks.length > 0">
+                {{ taskItem | completedTasks }} of 3 subtasks
+            </ng-template>
         </p>
     </div>
 </div>

@@ -25,7 +25,10 @@
                     <ng-container formArrayName="subtasks" class="mb-3">
                       <label class="label me-3">SubTasks</label>
                       <div class="mb-3" *ngFor="let subtaskItem of subtasks.controls; let i= index" [formGroupName]="i">
-                        <input type="text" class="form-control" formControlName="description" />
+                        <div class="input-group">
+                          <input type="text" class="form-control me-4" formControlName="description" />
+                            <fa-icon [icon]="faX" (click)="removeSubTask(i)"></fa-icon>
+                        </div>
                       </div>
                       <button class="btn btn-primary rounded-pill" type="button" (click)="addSubtasks($event)">+ Add New Subtask</button>
                     </ng-container>

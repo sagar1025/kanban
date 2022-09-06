@@ -6,6 +6,7 @@ import IColumn from '../interface/IColumn';
 import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import ITask from '../interface/ITask';
 import ISubtask from '../interface/ISubtask';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   activeBoard: any;
   columns: IColumn[] = [];
   taskForm: FormGroup;
+  faX = faX;
 
 
   constructor(private localstorage: StorageService, private fb: FormBuilder) { 
@@ -47,12 +49,18 @@ export class NavbarComponent implements OnInit {
     })
   };
 
+  removeSubTask(id: number): void {
+    return this.subtasks.removeAt(id);
+  };
+
   addSubtasks(event: Event) {
     this.subtasks.push(this.newSubTask());
   }
 
   addTask():void {
     console.log(this.taskForm.value);
+    // TO DO update board.
+    
     // const allBoards = this.localstorage.get(boardKey);
     // let activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
     // const formData = form.value;
