@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { StorageService } from '../services/storageService';
 import { activeBoardKey, boardKey } from '../constants';
 import { IBoard } from '../interface/IBoard';
 import IColumn from '../interface/IColumn';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ITask from '../interface/ITask';
-import ISubtask from '../interface/ISubtask';
 import { faX } from '@fortawesome/free-solid-svg-icons';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   columns: IColumn[] = [];
   taskForm: FormGroup;
   faX = faX;
+  @Output() onAddTask = new EventEmitter<ITask>();
 
 
   constructor(private localstorage: StorageService, private fb: FormBuilder) { 
@@ -58,33 +59,37 @@ export class NavbarComponent implements OnInit {
   }
 
   addTask():void {
-    //console.log(this.taskForm.value);
-    // TO DO update board.
-
     const allBoards = this.localstorage.get(boardKey);
     let activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
     const formData = this.taskForm.value;
-    const task = {
-      id: allBoards[activeBoard.id].columns[formData.status].tasks && allBoards[activeBoard.id].columns[formData.status].tasks.length > 0 ?
-      allBoards[activeBoard.id].columns[formData.status].tasks.length : 0,
-      title: formData.title,
-      description: formData.description,
-      columnId: formData.status,
-      subTasks: formData.subtasks
-    } as ITask;
-
-    if (task.id === 0) {
-      allBoards[activeBoard.id].columns[formData.status].tasks = [task] as [ITask];
+    if(formData.title && formData.description && formData.status > -1) {
+      const task = {
+        id: allBoards[activeBoard.id].columns[formData.status].tasks && allBoards[activeBoard.id].columns[formData.status].tasks.length > 0 ?
+        allBoards[activeBoard.id].columns[formData.status].tasks.length : 0,
+        title: formData.title,
+        description: formData.description,
+        columnId: formData.status,
+        subTasks: formData.subtasks
+      } as ITask;
+  
+      if (task.id === 0) {
+        allBoards[activeBoard.id].columns[formData.status].tasks = [task] as [ITask];
+      }
+      else {
+        allBoards[activeBoard.id].columns[formData.status].tasks.push(task as ITask);
+      }
+  
+      this.localstorage.set(boardKey, allBoards);
+      //update activeBoard
+      activeBoard = allBoards[activeBoard.id];
+      this.localstorage.set(activeBoardKey, activeBoard);
+      //send event to parent so the UI is updated.
+      this.onAddTask.emit(task);
+      //close the modal
+      const closeBtn = <HTMLButtonElement>document.querySelector("#addTask .btn-close");
+      if (closeBtn !== null) {
+        closeBtn.click();
+      }
     }
-    else {
-      allBoards[activeBoard.id].columns[formData.status].tasks.push(task as ITask);
-    }
-
-    this.localstorage.set(boardKey, allBoards);
-    //update activeBoard
-    activeBoard = allBoards[activeBoard.id];
-    this.localstorage.set(activeBoardKey, activeBoard);
   }
-
-
 }

@@ -4,6 +4,7 @@ import { StorageService } from '../services/storageService';
 import { activeBoardKey, boardKey } from '../constants';
 import IColumn  from '../interface/IColumn';
 import { NgForm } from '@angular/forms';
+import ITask from '../interface/ITask';
 
 @Component({
   selector: 'app-columns',
@@ -45,6 +46,15 @@ export class ColumnsComponent implements OnInit {
       this.localstorage.set(boardKey, allBoards);
       this.localstorage.set(activeBoardKey, activeBoard);
       window.location.reload();
+    }
+  }
+
+  taskAdded(newTask: ITask) {
+    if(this.columns[newTask.columnId].tasks) {
+      this.columns[newTask.columnId].tasks?.push(newTask);
+    }
+    else {
+      this.columns[newTask.columnId].tasks = [newTask];
     }
   }
 }

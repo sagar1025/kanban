@@ -1,4 +1,4 @@
-<app-navbar class="w-100"></app-navbar>
+<app-navbar class="w-100" (onAddTask)="taskAdded($event)"></app-navbar>
 <div class="container-fluid py-4 vh-100">
     <div class="d-flex justify-content-between">
         <app-column class="column-item" style="max-width: 250px; min-width: 150px;"
@@ -8,6 +8,7 @@
         <button class="btn w-100 bg-light align-items-stretch ms-2"  style="min-height: calc(100vh - 10vh);" data-bs-toggle="modal" data-bs-target="#newColumn">+ New Column</button>
     </div>
 </div>
+<!-- Modal -->
 <div class="modal fade" tabindex="-1" id="newColumn" aria-labelledby="newColumnLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
