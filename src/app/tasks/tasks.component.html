@@ -1,5 +1,5 @@
 <div *ngFor="let taskItem of columnTasks" class="card mb-3">
-    <div class="card-body column-task">
+    <div class="card-body column-task cursor-pointer" role="button" (click)="editTask(taskItem)">
         <h6>{{taskItem.title}}</h6>
         <p class="checklist text-small" style="font-size: smaller;" *ngIf="taskItem.subTasks; else noSubTasks">
             {{ taskItem | completedTasks }} of {{taskItem.subTasks.length}} subtasks
@@ -9,3 +9,4 @@
         </ng-template>
     </div>
 </div>
+<!-- TO DO  OPEN editTask in MODAL  -->

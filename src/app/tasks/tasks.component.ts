@@ -15,4 +15,8 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  editTask(task: ITask): void {
+    console.log(task);
+  }
+
 }
