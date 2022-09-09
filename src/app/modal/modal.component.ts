@@ -36,8 +36,6 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //console.log(this.taskToEdit);
-    console.log(this.statuses);
     this.eventsSubscription = this.taskToEdit.subscribe((task: ITask) => {
       this.taskToDisplay = task;
       document.body.append(this.backDrop);
