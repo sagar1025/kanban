@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { activeBoardKey } from '../constants';
 import { IBoard } from '../interface/IBoard';
 import IColumn from '../interface/IColumn';
 import ITask from '../interface/ITask';
 import { StorageService } from '../services/storageService';
+import { activeBoardKey, boardKey } from '../constants';
 
 @Component({
   selector: 'app-modal',
@@ -16,9 +16,9 @@ export class ModalComponent implements OnInit {
   backDrop: HTMLElement = document.createElement('div');
 
   @Input() taskToEdit!: Observable<ITask>;
-  taskToDisplay: ITask = {id: 0, title: '', description: '', columnId: -1};
+  taskToDisplay: ITask = { id: 0, title: '', description: '', columnId: -1 };
   statuses: IColumn[] = [];
-  activeBoard: any;
+  activeBoard: IBoard;
 
   @ViewChild('taskModal') modal: any;
   
@@ -27,12 +27,6 @@ export class ModalComponent implements OnInit {
     this.backDrop.id = 'backdrop';
     this.activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
     this.statuses = this.activeBoard.columns && this.activeBoard.columns.length > 0 ? this.activeBoard.columns : [];
-  }
-
-  closeModal() {
-    this.backDrop.remove();
-    this.modal.nativeElement.style.display = 'none';
-    this.modal.nativeElement.classList = 'modal';
   }
 
   ngOnInit(): void {
@@ -44,8 +38,45 @@ export class ModalComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.eventsSubscription.unsubscribe();
+  }
+
+  closeModal() {
+    this.backDrop.remove();
+    this.modal.nativeElement.style.display = 'none';
+    this.modal.nativeElement.classList = 'modal';
+  }
+
+  updateSubtask(event: Event, subtaskId: number): void {
+    if (this.taskToDisplay.subTasks) {
+      const allBoards = this.getAllBoards();
+      const isChecked = (<HTMLInputElement>event.target).checked;
+
+      this.taskToDisplay.subTasks[subtaskId].complete = isChecked;
+      allBoards[this.activeBoard.id].columns[this.taskToDisplay.columnId].tasks[this.taskToDisplay.id] = this.taskToDisplay;
+
+      this.updateLocalStorage(allBoards);
+    }
+  }
+
+  updateStatus(event: Event) {
+    const allBoards = this.getAllBoards();
+    const colId = parseInt((<HTMLInputElement>event.target).value);
+
+    this.taskToDisplay.columnId = colId;
+    allBoards[this.activeBoard.id].columns[this.taskToDisplay.columnId].tasks[this.taskToDisplay.id] = this.taskToDisplay;
+    this.updateLocalStorage(allBoards);
+  }
+
+  updateLocalStorage(updatedBoards: any) {
+    this.localstorage.set(boardKey, updatedBoards);
+    //also set active board
+    this.localstorage.set(activeBoardKey, this.activeBoard);
+  }
+
+  getAllBoards() {
+    return this.localstorage.get(boardKey);
   }
 
 }

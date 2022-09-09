@@ -14,17 +14,17 @@
                 <div *ngIf="taskToDisplay.subTasks && taskToDisplay.subTasks.length > 0">
                     <div *ngFor="let subtask of taskToDisplay.subTasks">
                         <div class="input-group-text border p-2 rounded mb-2">
-                            <input type="checkbox" [(ngModel)]="subtask.complete" class="me-2" id="{{'subtask' + subtask.id}}">
+                            <input type="checkbox" [(ngModel)]="subtask.complete" class="me-2" id="{{'subtask' + subtask.id}}" 
+                            (change)="updateSubtask($event, subtask.id)">
                             <label for="{{'subtask' + subtask.id}}" [ngClass]="subtask.complete ? 'strike' : '' ">{{subtask.description}}</label>
                           </div>
                     </div>
-
                 </div>
                 <div>
                     <strong>Status</strong>
-                    <select class="form-select" aria-label="status">
-                        <option *ngFor="let col of statuses" [ngValue]="col.id" selected="{{col.id.toString() === taskToDisplay.columnId.toString()}}">{{col.name}}</option>
-                      </select>
+                    <select class="form-select" aria-label="status" (change)="updateStatus($event)">
+                        <option *ngFor="let col of statuses" [value]="col.id" selected="{{col.id.toString() === taskToDisplay.columnId.toString()}}">{{col.name}}</option>
+                    </select>
                 </div>
             </div>
         </div>
