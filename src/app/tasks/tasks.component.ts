@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import ITask from '../interface/ITask';
 
 @Component({
@@ -10,17 +10,14 @@ import ITask from '../interface/ITask';
 export class TasksComponent implements OnInit {
 
   @Input() columnTasks: ITask[] | undefined = [];
+  onOpenModal: Subject<ITask> = new Subject<ITask>();
 
   constructor() { }
-  
-  @ViewChild('modal', { read: ViewContainerRef })
-  entry!: ViewContainerRef;
-  sub!: Subscription;
 
   ngOnInit(): void {
   }
 
   openModal(task: ITask): void {
-    console.log(task);
+    this.onOpenModal.next(task);
   }
 }

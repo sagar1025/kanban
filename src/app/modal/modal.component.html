@@ -1,12 +1,31 @@
-<div class="modal" tabindex="-1" id="taskModal" aria-labelledby="taskModalLabel" style="display: block;" aria-modal="true" role="dialog">
+<div #taskModal class="modal" tabindex="-1" aria-labelledby="taskModalLabel" aria-modal="true" role="dialog" style="display: none;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">TITLE</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" [innerText]="taskToDisplay.title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
             </div>
             <div class="modal-body">
-                <div>MODAL BODY</div>
+                <p [innerText]="taskToDisplay.description"></p>
+                <p>
+                    <strong class="mb-2">Subtasks {{ taskToDisplay | completedTasks }} of {{taskToDisplay.subTasks ? taskToDisplay.subTasks.length : 0}}</strong>
+                </p>
+                
+                <div *ngIf="taskToDisplay.subTasks && taskToDisplay.subTasks.length > 0">
+                    <div *ngFor="let subtask of taskToDisplay.subTasks">
+                        <div class="input-group-text border p-2 rounded mb-2">
+                            <input type="checkbox" [(ngModel)]="subtask.complete" class="me-2" id="{{'subtask' + subtask.id}}">
+                            <label for="{{'subtask' + subtask.id}}" [ngClass]="subtask.complete ? 'strike' : '' ">{{subtask.description}}</label>
+                          </div>
+                    </div>
+
+                </div>
+                <div>
+                    <strong>Status</strong>
+                    <select class="form-select" aria-label="status">
+                        <option *ngFor="let col of statuses" [ngValue]="col.id" selected="{{col.id.toString() === taskToDisplay.columnId.toString()}}">{{col.name}}</option>
+                      </select>
+                </div>
             </div>
         </div>
     </div>
