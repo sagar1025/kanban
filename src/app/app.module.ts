@@ -11,6 +11,7 @@ import { ColumnsComponent } from './columns/columns.component';
 import { ColumnComponent } from './column/column.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { CompletedTasksPipe } from './pipes/completedTasks.pipe';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +23,16 @@ import { CompletedTasksPipe } from './pipes/completedTasks.pipe';
     ColumnsComponent,
     ColumnComponent,
     TasksComponent,
-    CompletedTasksPipe
+    CompletedTasksPipe,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     FontAwesomeModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
