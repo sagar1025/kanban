@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { IBoard } from '../interface/IBoard';
 import ITask from '../interface/ITask';
 
 @Component({
@@ -19,5 +20,12 @@ export class TasksComponent implements OnInit {
 
   openModal(task: ITask): void {
     this.onOpenModal.next(task);
+  }
+  onUpdatetask(updatedTask: ITask): void {
+    if(this.columnTasks !== undefined && this.columnTasks[updatedTask.id]) {
+      this.columnTasks[updatedTask.id] = updatedTask;
+    }
+    window.location.reload();
+
   }
 }

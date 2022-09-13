@@ -18,7 +18,8 @@ export class ColumnsComponent implements OnInit {
 
   ngOnInit(): void { 
     const activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
-    this.columns = activeBoard.columns && activeBoard.columns.length > 0 ? activeBoard.columns : [];
+    const allBoards = this.localstorage.get(boardKey);
+    this.columns = allBoards[activeBoard.id].columns;
   }
 
   addColumn(form: NgForm): void {

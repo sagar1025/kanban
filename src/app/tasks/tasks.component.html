@@ -9,4 +9,4 @@
         </ng-template>
     </div>
 </div>
-<app-modal [taskToEdit]="onOpenModal.asObservable()"></app-modal>
+<app-modal [taskToEdit]="onOpenModal.asObservable()" (onUpdateTask)="onUpdatetask($event)"></app-modal>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { IBoard } from '../interface/IBoard';
 import IColumn from '../interface/IColumn';
@@ -16,6 +16,8 @@ export class ModalComponent implements OnInit {
   backDrop: HTMLElement = document.createElement('div');
 
   @Input() taskToEdit!: Observable<ITask>;
+  @Output() onUpdateTask = new EventEmitter<ITask>();
+
   taskToDisplay: ITask = { id: 0, title: '', description: '', columnId: -1 };
   statuses: IColumn[] = [];
   activeBoard: IBoard;
@@ -54,8 +56,7 @@ export class ModalComponent implements OnInit {
       const isChecked = (<HTMLInputElement>event.target).checked;
 
       this.taskToDisplay.subTasks[subtaskId].complete = isChecked;
-      allBoards[this.activeBoard.id].columns[this.taskToDisplay.columnId].tasks[this.taskToDisplay.id] = this.taskToDisplay;
-
+      allBoards[this.activeBoard.id].columns[this.taskToDisplay.columnId].tasks[this.taskToDisplay.id].subTasks[subtaskId].complete = isChecked;
       this.updateLocalStorage(allBoards);
     }
   }
@@ -69,10 +70,12 @@ export class ModalComponent implements OnInit {
     this.updateLocalStorage(allBoards);
   }
 
-  updateLocalStorage(updatedBoards: any) {
+  updateLocalStorage(updatedBoards: Array<IBoard>) {
     this.localstorage.set(boardKey, updatedBoards);
     //also set active board
     this.localstorage.set(activeBoardKey, this.activeBoard);
+
+    this.onUpdateTask.emit(this.taskToDisplay);
   }
 
   getAllBoards() {
