@@ -28,11 +28,9 @@ import { ModalComponent } from './modal/modal.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     FontAwesomeModule,
     FormsModule, 
-    ReactiveFormsModule,
-    
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

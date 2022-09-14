@@ -1,11 +1,38 @@
 import { TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from './app.component';
+import { ColumnComponent } from './column/column.component';
+import { ColumnsComponent } from './columns/columns.component';
+import { ModalComponent } from './modal/modal.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CompletedTasksPipe } from './pipes/completedTasks.pipe';
+import { ServerComponent } from './server/server.component';
+import { ServersComponent } from './servers/servers.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        ServerComponent,
+        ServersComponent,
+        SidebarComponent,
+        NavbarComponent,
+        ColumnsComponent,
+        ColumnComponent,
+        TasksComponent,
+        CompletedTasksPipe,
+        ModalComponent
+      ],
+      imports: [
+        BrowserModule,
+        FontAwesomeModule,
+        FormsModule, 
+        ReactiveFormsModule
       ],
     }).compileComponents();
   });
@@ -19,13 +46,12 @@ describe('AppComponent', () => {
   it(`should have as title 'kanban'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('kanban');
+    expect(app.title).toEqual('Kanban');
   });
 
-  it('should render title', () => {
+  it('should render component', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('kanban app is running!');
+    const component = fixture.componentInstance;
+    expect(component).toBeDefined();
   });
 });
