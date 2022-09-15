@@ -25,6 +25,7 @@ describe('test sidebar component', () => {
         });
         fixture = TestBed.createComponent(SidebarComponent);
         component = fixture.componentInstance;
+        mockedStorageService = TestBed.inject(StorageService);
     });
 
     afterEach(() => {
@@ -32,12 +33,10 @@ describe('test sidebar component', () => {
     });
 
     it('should display sidebar component', () => {
-        mockedStorageService = TestBed.inject(StorageService);
         expect(component).toBeDefined();
     });
 
     it('number of boards in localStorage should be equal to number of boards set', () => {
-        mockedStorageService = TestBed.inject(StorageService);
         mockedStorageService.set(boardKey, BOARDS_DATA);
 
         component.ngOnInit();
@@ -47,7 +46,6 @@ describe('test sidebar component', () => {
     });
 
     it('should set active board', fakeAsync (() => {
-        mockedStorageService = TestBed.inject(StorageService);
         mockedStorageService.set(boardKey, BOARDS_DATA);
 
         component.ngOnInit();
