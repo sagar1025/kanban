@@ -27,4 +27,13 @@ export class StorageService {
       return null;
     }
   }
+
+  clear() {
+    try {
+      localStorage.clear();
+    }
+    catch(e) {
+      console.error(e)
+    }
+  }
 }
