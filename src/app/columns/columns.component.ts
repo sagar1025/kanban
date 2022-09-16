@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IBoard } from '../interface/IBoard';
 import { StorageService } from '../services/storageService';
 import { activeBoardKey, boardKey } from '../constants';

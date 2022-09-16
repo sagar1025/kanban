@@ -1,11 +1,9 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { StorageService } from '../services/storageService';
-import {  ACTIVE_BOARD_DATA, BOARDS_DATA } from '../services/storageService.spec';
 import { ColumnsComponent } from './columns.component';
-import { boardKey, activeBoardKey } from '../constants';
 
 describe('ColumnsComponent', () => {
   let component: ColumnsComponent;
