@@ -9,7 +9,7 @@ import { boardKey } from '../constants';
 describe('test sidebar component', () => {
     let fixture: ComponentFixture<SidebarComponent>;
     let component: SidebarComponent;
-    let mockedStorageService: StorageService;
+    let storageService: StorageService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -25,11 +25,11 @@ describe('test sidebar component', () => {
         });
         fixture = TestBed.createComponent(SidebarComponent);
         component = fixture.componentInstance;
-        mockedStorageService = TestBed.inject(StorageService);
+        storageService = TestBed.inject(StorageService);
     });
 
     afterEach(() => {
-        mockedStorageService.clear();
+        storageService.clear();
     });
 
     it('should display sidebar component', () => {
@@ -37,16 +37,16 @@ describe('test sidebar component', () => {
     });
 
     it('number of boards in localStorage should be equal to number of boards set', () => {
-        mockedStorageService.set(boardKey, BOARDS_DATA);
+        storageService.set(boardKey, BOARDS_DATA);
 
         component.ngOnInit();
 
-        const boards= mockedStorageService.get(boardKey);
+        const boards= storageService.get(boardKey);
         expect(component.boardsCount).toEqual(boards.length)
     });
 
     it('should set active board', fakeAsync (() => {
-        mockedStorageService.set(boardKey, BOARDS_DATA);
+        storageService.set(boardKey, BOARDS_DATA);
 
         component.ngOnInit();
         fixture.detectChanges();
