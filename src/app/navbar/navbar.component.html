@@ -1,47 +1,47 @@
 <nav class="navbar navbar-light bg-light p-3">
-    <a class="navbar-brand" href="#">
+    <h1 class="navbar-brand" role="heading" aria-level="1">
       {{activeBoard.name}}
-    </a>
-    <button *ngIf="activeBoard.columns && activeBoard.columns.length > 0" class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#addTask">+ Add New Task</button>
+    </h1>
+    <button *ngIf="activeBoard.columns && activeBoard.columns.length > 0" attr.aria-label="{{'Add a new task for ' + activeBoard.name }}" class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#addTask">+ Add New Task</button>
 </nav>
 <!-- modal -->
 <div  *ngIf="activeBoard.columns && activeBoard.columns.length > 0" class="modal fade" tabindex="-1" id="addTask" aria-labelledby="addTaskLabel">
   <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title">Add a New Task</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 class="modal-title" role="heading" aria-level="5">Add a New Task for {{activeBoard.name}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal"></button>
           </div>
           <div class="modal-body">
-              <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+              <form [formGroup]="taskForm" (ngSubmit)="addTask()" role="form" aria-label="new task form">
                   <div class="input-group mb-3">
-                      <label class="label me-3">Title</label>
-                      <input type="text" class="form-control" placeholder="Title" aria-label="Title" name="title" formControlName="title" />
+                      <label class="label me-3" aria-label="title" for="title">Title</label>
+                      <input type="text" id="title" class="form-control" placeholder="Title" aria-label="Title" name="title" formControlName="title" />
                   </div>
                   <div class="input-group mb-3">
-                    <label class="label me-3">Description</label>
-                    <input type="text" class="form-control" placeholder="Description" aria-label="Description" name="description" formControlName="description"/>
+                    <label class="label me-3" aria-label="description" for="description">Description</label>
+                    <input type="text" id="description" class="form-control" placeholder="Description" aria-label="Description" name="description" formControlName="description"/>
                   </div>
                   <div>
                     <ng-container formArrayName="subtasks" class="mb-3">
-                      <label class="label me-3">SubTasks</label>
+                      <label class="label me-3" aria-label="Subtasks">SubTasks</label>
                       <div class="mb-3" *ngFor="let subtaskItem of subtasks.controls; let i= index" [formGroupName]="i">
                         <div class="input-group">
-                          <input type="text" class="form-control me-4" formControlName="description" />
+                          <input type="text" class="form-control me-4" formControlName="description" attr.aria-label="{{'subtask ' + i + ' of ' + subtasks.length}}" />
                             <fa-icon [icon]="faX" (click)="removeSubTask(i)"></fa-icon>
                         </div>
                       </div>
-                      <button class="btn btn-primary rounded-pill" type="button" (click)="addSubtasks($event)">+ Add New Subtask</button>
+                      <button class="btn btn-primary rounded-pill" type="button" (click)="addSubtasks($event)" aria-label="add a new task">+ Add New Subtask</button>
                     </ng-container>
                   </div>
                   <div class="input-group mb-3 mt-4">
-                    <label class="label me-3">Status</label>
-                    <select class="form-select" aria-label="status" formControlName="status">
+                    <label class="label me-3" aria-label="status" for="status">Status</label>
+                    <select class="form-select" aria-label="status" formControlName="status" id="status">
                       <option *ngFor="let col of columns" [ngValue]="col.id">{{col.name}}</option>
                     </select>
                   </div>
                   <div class="modal-footer">
-                      <button class="btn btn-primary rounded-pill">Create Task</button>
+                      <button class="btn btn-primary rounded-pill" type="submit" aria-label="create task">Create Task</button>
                   </div>
               </form>
           </div>

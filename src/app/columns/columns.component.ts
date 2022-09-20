@@ -14,12 +14,14 @@ import ITask from '../interface/ITask';
 export class ColumnsComponent implements OnInit {
 
   columns: IColumn[] = [];
+  activeBoardname: string = '';
   constructor(private localstorage: StorageService) { }
 
   ngOnInit(): void { 
     const activeBoard = <IBoard>this.localstorage.get(activeBoardKey);
     const allBoards = this.localstorage.get(boardKey);
     this.columns = allBoards[activeBoard.id].columns;
+    this.activeBoardname = activeBoard.name || '';
   }
 
   addColumn(form: NgForm): void {

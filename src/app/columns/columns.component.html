@@ -5,7 +5,7 @@
             *ngFor="let item of columns"
             [column]="item">
         </app-column>
-        <button class="btn w-100 bg-light align-items-stretch ms-2"  style="min-height: calc(100vh - 10vh);" data-bs-toggle="modal" data-bs-target="#newColumn">+ New Column</button>
+        <button class="btn w-100 bg-light align-items-stretch ms-2"  style="min-height: calc(100vh - 10vh);" data-bs-toggle="modal" data-bs-target="#newColumn" attr.aria-label="{{'Add a new column in ' + activeBoardname}}">+ New Column in {{activeBoardname}}</button>
     </div>
 </div>
 <!-- Modal -->
@@ -17,14 +17,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form #f="ngForm" (ngSubmit)="addColumn(f)">
+                <form #f="ngForm" (ngSubmit)="addColumn(f)" role="form" aria-label="New column form"> 
                     <div class="input-group mb-3">
-                        <label class="label me-3">Name of Column</label>
-                        <input type="text" class="form-control" placeholder="Column name" aria-label="Column name" name="columnName"  ngModel/>
+                        <label class="label me-3" aria-label="Name of Column" for="columnname">Name of Column</label>
+                        <input type="text" id="columnname" class="form-control" placeholder="Column name" aria-label="Column name" name="columnName"  ngModel/>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Add column</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="close modal">Close</button>
+                        <button class="btn btn-primary" type="submit" aria-label="Add a column">Add column</button>
                     </div>
                 </form>
             </div>
